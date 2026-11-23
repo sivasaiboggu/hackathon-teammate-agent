@@ -1,0 +1,87 @@
+{
+  "project": "campus-queue",
+  "slides": [
+    {
+      "title": "Problem",
+      "points": [
+        "Hackathon teams spend the last hours writing docs instead of finishing the build.",
+        "A repo with no README is hard to judge, demo, or hand over."
+      ],
+      "sources": []
+    },
+    {
+      "title": "Solution",
+      "points": [
+        "campus-queue: paste a repo URL, get a README, a demo script, and an 8-slide deck.",
+        "Every line is traced to a file in the repo — nothing invented."
+      ],
+      "sources": [
+        "package.json",
+        "public/app.js",
+        "server.js"
+      ]
+    },
+    {
+      "title": "Live demo",
+      "points": [
+        "Paste the repo URL and watch the file tree and summary appear.",
+        "README, script, and deck render in under a minute."
+      ],
+      "sources": []
+    },
+    {
+      "title": "How it works",
+      "points": [
+        "1. Read the repo: manifests, entry points, routes, tests.",
+        "2. Summarise what the files actually show.",
+        "3. Write the README, script, and deck from that summary."
+      ],
+      "sources": [
+        "package.json",
+        "public/app.js",
+        "server.js",
+        "src/queue.js"
+      ]
+    },
+    {
+      "title": "Tech stack",
+      "points": [
+        "Languages in the repo: Markdown, JSON, JavaScript, HTML, CSS.",
+        "Dependencies: express.",
+        "Tests: test/queue.test.js."
+      ],
+      "sources": [
+        "package.json",
+        "public/app.js",
+        "server.js",
+        "src/queue.js",
+        "test/queue.test.js"
+      ]
+    },
+    {
+      "title": "What is next",
+      "points": [
+        "Add a live deployment link once the app is hosted.",
+        "Add screenshots of the app running.",
+        "Fill in the team slide with real names before presenting."
+      ],
+      "sources": []
+    },
+    {
+      "title": "Team",
+      "points": [
+        "Add your team members here — names and what each person built.",
+        "This slide is a placeholder until you fill it in."
+      ],
+      "sources": []
+    },
+    {
+      "title": "Ask",
+      "points": [
+        "We are looking for feedback on the draft docs and one more judge run-through.",
+        "Try it on your own repo after the demo."
+      ],
+      "sources": []
+    }
+  ]
+}

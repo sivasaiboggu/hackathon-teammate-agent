@@ -1,0 +1,40 @@
+[
+  {
+    "name": "What it does",
+    "sources": [
+      "server.js"
+    ]
+  },
+  {
+    "name": "Install",
+    "sources": [
+      "package.json"
+    ]
+  },
+  {
+    "name": "Run",
+    "sources": [
+      "server.js"
+    ]
+  },
+  {
+    "name": "API",
+    "sources": [
+      "server.js"
+    ]
+  },
+  {
+    "name": "Project layout",
+    "sources": [
+      ".gitignore",
+      "README.md",
+      "package.json",
+      "public/app.js",
+      "public/index.html",
+      "public/style.css",
+      "server.js",
+      "src/queue.js",
+      "test/queue.test.js"
+    ]
+  }
+]

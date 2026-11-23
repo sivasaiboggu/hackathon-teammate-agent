@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hackathon Teammate — README, demo script &amp; deck from your repo</title>
+<meta name="description" content="Paste a repo URL and get a README, a 90-second demo script, and an 8-slide pitch deck. Every line traced to a file in the repo.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">HT</span>
+    <div>
+      <h1>Hackathon Teammate</h1>
+      <p>Paste a repo. Get the README, the demo script, and the deck.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span id="keyStatus" class="key-status">No Gemini key — local drafts</span>
+    <button id="settingsBtn" class="btn btn-ghost" type="button">Settings</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="rail" aria-label="Repo and pipeline">
+    <section class="rail-block">
+      <h2>Pipeline</h2>
+      <ol id="pipeline" class="pipeline">
+        <li data-stage="analyse"><span class="step-dot"></span><span class="step-name">Analyse repo</span><span class="step-state">done</span></li>
+        <li data-stage="readme"><span class="step-dot"></span><span class="step-name">Write README</span><span class="step-state">done</span></li>
+        <li data-stage="script"><span class="step-dot"></span><span class="step-name">Write demo script</span><span class="step-state">done</span></li>
+        <li data-stage="deck"><span class="step-dot"></span><span class="step-name">Write deck</span><span class="step-state">done</span></li>
+      </ol>
+      <p id="pipelineNote" class="muted small">Sample repo loaded. Nothing here was generated live — these are the pre-made outputs.</p>
+    </section>
+
+    <section class="rail-block">
+      <h2>Facts from the repo</h2>
+      <dl id="facts" class="facts"></dl>
+      <p class="muted small">Each fact comes from a file in the tree below. Nothing is guessed.</p>
+    </section>
+
+    <section class="rail-block">
+      <h2>Files <span id="fileCount" class="muted"></span></h2>
+      <input id="treeFilter" type="search" placeholder="Filter files…" aria-label="Filter files">
+      <ul id="fileTree" class="file-tree"></ul>
+    </section>
+
+    <section class="rail-block">
+      <h2>Past runs</h2>
+      <ul id="runList" class="run-list"></ul>
+      <p id="noRuns" class="muted small">Runs save automatically in this browser.</p>
+    </section>
+  </aside>
+
+  <section class="workspace" aria-label="Generated artefacts">
+    <div class="command-bar">
+      <label for="repoUrl" class="sr-only">GitHub repo URL</label>
+      <input id="repoUrl" type="url" placeholder="Paste a GitHub repo URL — github.com/owner/repo" autocomplete="off" spellcheck="false">
+      <button id="analyseBtn" class="btn btn-primary" type="button">Analyse repo</button>
+      <button id="sampleBtn" class="btn" type="button">Use the sample repo</button>
+    </div>
+    <p id="commandHint" class="muted small">Public repos only, no sign-in. The sample repo works with no network and no key.</p>
+    <p id="errorBox" class="error-box" role="alert" hidden></p>
+    <p id="progressLine" class="progress-line" aria-live="polite"></p>
+
+    <div id="sourceBanner" class="source-banner">
+      <strong id="sourceLabel">Pre-made sample</strong>
+      <span id="sourceText">Showing the pre-made README, script, and deck for the bundled sample repo, campus-queue. Press “Analyse repo” to run it live.</span>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Artefacts">
+      <button id="tab-readme" class="tab active" role="tab" aria-selected="true" data-tab="readme" type="button">README</button>
+      <button id="tab-script" class="tab" role="tab" aria-selected="false" data-tab="script" type="button">Demo script <span id="scriptTotal" class="tab-meta">90s</span></button>
+      <button id="tab-deck" class="tab" role="tab" aria-selected="false" data-tab="deck" type="button">Deck <span class="tab-meta">8 slides</span></button>
+    </div>
+
+    <div id="panel-readme" class="panel active" role="tabpanel" aria-labelledby="tab-readme">
+      <div class="panel-head">
+        <div>
+          <h2>README</h2>
+          <p class="muted">A first draft from the repo files. Check it before you present it.</p>
+        </div>
+        <div class="panel-actions">
+          <button id="polishReadmeBtn" class="btn btn-ghost" type="button">Polish with Gemini</button>
+          <button id="restoreReadmeBtn" class="btn btn-ghost" type="button" hidden>Restore local draft</button>
+          <button id="copyReadmeBtn" class="btn" type="button">Copy</button>
+          <button id="downloadReadmeBtn" class="btn" type="button">Download .md</button>
+        </div>
+      </div>
+      <p id="readmeOrigin" class="origin-label">Local draft — built from the repo files, no AI call.</p>
+      <div class="readme-grid">
+        <div class="readme-preview" id="readmePreview"></div>
+        <div class="readme-edit">
+          <label for="readmeEditor">Edit the Markdown</label>
+          <textarea id="readmeEditor" spellcheck="false"></textarea>
+        </div>
+      </div>
+      <h3 class="sources-heading">Where each section came from</h3>
+      <ul id="readmeSources" class="source-list"></ul>
+    </div>
+
+    <div id="panel-script" class="panel" role="tabpanel" aria-labelledby="tab-script">
+      <div class="panel-head">
+        <div>
+          <h2>Demo script — 90 seconds</h2>
+          <p class="muted">Five cues. Edit the words or the timing; the total updates as you type.</p>
+        </div>
+        <div class="panel-actions">
+          <button id="polishScriptBtn" class="btn btn-ghost" type="button">Polish with Gemini</button>
+          <button id="restoreScriptBtn" class="btn btn-ghost" type="button" hidden>Restore local draft</button>
+          <button id="copyScriptBtn" class="btn" type="button">Copy</button>
+          <button id="downloadScriptBtn" class="btn" type="button">Download .md</button>
+        </div>
+      </div>
+      <p id="scriptOrigin" class="origin-label">Local draft — built from the repo files, no AI call.</p>
+      <div class="script-total-bar">
+        <div id="scriptTotalFill" class="script-total-fill" style="width:100%"></div>
+      </div>
+      <p class="muted small"><span id="scriptTotalText">Total: 90 seconds</span> <span id="scriptTotalWarn"></span></p>
+      <ol id="scriptCues" class="script-cues"></ol>
+    </div>
+
+    <div id="panel-deck" class="panel" role="tabpanel" aria-labelledby="tab-deck">
+      <div class="panel-head">
+        <div>
+          <h2>Pitch deck — 8 slides</h2>
+          <p class="muted">Fixed order: problem, solution, demo, how it works, stack, next steps, team, ask.</p>
+        </div>
+        <div class="panel-actions">
+          <button id="polishDeckBtn" class="btn btn-ghost" type="button">Polish with Gemini</button>
+          <button id="restoreDeckBtn" class="btn btn-ghost" type="button" hidden>Restore local draft</button>
+          <button id="downloadPptxBtn" class="btn btn-primary" type="button">Download .pptx</button>
+        </div>
+      </div>
+      <p id="deckOrigin" class="origin-label">Local draft — built from the repo files, no AI call.</p>
+      <div class="deck-layout">
+        <ol id="slideList" class="slide-list"></ol>
+        <div class="slide-stage">
+          <div class="slide-nav">
+            <button id="prevSlideBtn" class="btn" type="button">← Prev</button>
+            <span id="slideCounter" class="muted">Slide 1 of 8</span>
+            <button id="nextSlideBtn" class="btn" type="button">Next →</button>
+          </div>
+          <div id="slideCanvas" class="slide-canvas"></div>
+          <div class="slide-edit">
+            <label for="slideTitleInput">Slide title</label>
+            <input id="slideTitleInput" type="text">
+            <label for="slidePointsInput">Bullets — one per line</label>
+            <textarea id="slidePointsInput" rows="5" spellcheck="false"></textarea>
+            <p id="slideSources" class="muted small"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog id="settingsDialog" class="settings-dialog">
+  <form method="dialog">
+    <h2>Settings</h2>
+    <p class="muted">A Gemini key is optional. Without one, everything still works: the local
+      generator writes the drafts and the sample repo's pre-made outputs are shown.
+      With a key, the “Polish with Gemini” buttons rewrite each artefact with the
+      model, using only the extracted facts.</p>
+    <label for="geminiKey">Gemini API key <span class="muted">(free, from Google AI Studio)</span></label>
+    <input id="geminiKey" type="password" placeholder="Paste your key — stored in this browser only" autocomplete="off">
+    <label for="geminiModel">Model</label>
+    <select id="geminiModel">
+      <option value="gemini-2.5-flash" selected>gemini-2.5-flash (free tier)</option>
+      <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite (free tier)</option>
+      <option value="gemini-2.5-pro">gemini-2.5-pro (free tier)</option>
+    </select>
+    <p class="muted small">The key is saved in localStorage on this device only. It is sent to
+      Google's API when you press a Polish button, and nowhere else. No key is ever
+      stored in a run or sent to any other service.</p>
+    <div class="dialog-actions">
+      <button id="forgetKeyBtn" class="btn btn-ghost" type="button">Forget key</button>
+      <button id="saveKeyBtn" class="btn btn-primary" type="button">Save</button>
+      <button class="btn" type="submit">Close</button>
+    </div>
+  </form>
+</dialog>
+
+<footer class="foot">
+  <p>Hackathon Teammate. Drafts are grounded in the repo files — check them before you present.
+  Team and Ask slides are placeholders until you fill them in. <a href="PLAN.md">Plan</a> · <a href="README.md">README</a></p>
+</footer>
+
+<script src="vendor/marked.umd.js"></script>
+<script src="vendor/pptxgen.bundle.js"></script>
+<script src="core.js"></script>
+<script src="sample-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

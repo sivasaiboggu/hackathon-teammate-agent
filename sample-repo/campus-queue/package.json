@@ -1,0 +1,1 @@
+{"dependencies":{"express":"^4.19.2"},"description":"A live queue board for campus food counters. Students join a counter's queue from their phone and watch their position move; staff call the next token from a simple screen.","license":"MIT","main":"server.js","name":"campus-queue","scripts":{"start":"node server.js","test":"node --test test/queue.test.js"},"version":"1.0.0"}

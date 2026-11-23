@@ -1,0 +1,36 @@
+{
+  "cues": [
+    {
+      "at": 0,
+      "seconds": 20,
+      "cue": "Hook",
+      "line": "Every hackathon team loses the last two hours to docs. This is campus-queue — and it had almost no README when we started."
+    },
+    {
+      "at": 20,
+      "seconds": 25,
+      "cue": "Show the repo",
+      "line": "Here is the repo: 9 files. The analyser read them all and pulled out 6 HTTP endpoints (GET /api/counters, GET /api/counters/:id, POST /api/counters/:id/join, POST /api/counters/:id/next, POST /api/counters/:id/done/:tokenId, POST /api/counters/:id/leave/:tokenId)."
+    },
+    {
+      "at": 45,
+      "seconds": 20,
+      "cue": "Show the README",
+      "line": "From those files alone it wrote the README — install, run, and the API table. Nothing in it comes from anywhere else."
+    },
+    {
+      "at": 65,
+      "seconds": 15,
+      "cue": "Show the deck",
+      "line": "Same facts, eight slides: problem, solution, demo, how it works, stack, next steps, team, ask."
+    },
+    {
+      "at": 80,
+      "seconds": 10,
+      "cue": "Close",
+      "line": "Docs done. Back to building."
+    }
+  ],
+  "totalSeconds": 90,
+  "expectedSeconds": 90
+}

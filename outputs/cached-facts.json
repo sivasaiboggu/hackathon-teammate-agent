@@ -1,0 +1,123 @@
+{
+  "repo": "sivasai/campus-queue",
+  "files": [
+    ".gitignore",
+    "README.md",
+    "package.json",
+    "public/app.js",
+    "public/index.html",
+    "public/style.css",
+    "server.js",
+    "src/queue.js",
+    "test/queue.test.js"
+  ],
+  "fileCount": 9,
+  "languages": {
+    "Markdown": 1,
+    "JSON": 1,
+    "JavaScript": 4,
+    "HTML": 1,
+    "CSS": 1
+  },
+  "name": "campus-queue",
+  "description": "A live queue board for campus food counters. Students join a counter's queue from their phone and watch their position move; staff call the next token from a simple screen.",
+  "version": "1.0.0",
+  "entryPoint": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/queue.test.js"
+  },
+  "dependencies": [
+    "express"
+  ],
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/api/counters"
+    },
+    {
+      "method": "GET",
+      "path": "/api/counters/:id"
+    },
+    {
+      "method": "POST",
+      "path": "/api/counters/:id/join"
+    },
+    {
+      "method": "POST",
+      "path": "/api/counters/:id/next"
+    },
+    {
+      "method": "POST",
+      "path": "/api/counters/:id/done/:tokenId"
+    },
+    {
+      "method": "POST",
+      "path": "/api/counters/:id/leave/:tokenId"
+    }
+  ],
+  "routeSources": [
+    "server.js"
+  ],
+  "functions": {
+    "public/app.js": [
+      "loadCounters",
+      "loadBoard"
+    ],
+    "src/queue.js": [
+      "createQueue",
+      "join",
+      "position",
+      "callNext",
+      "markDone",
+      "leave"
+    ]
+  },
+  "hasTests": true,
+  "testFiles": [
+    "test/queue.test.js"
+  ],
+  "hasReadme": true,
+  "readmeLength": 3,
+  "readmeSources": [],
+  "keyFiles": [
+    "package.json",
+    "public/app.js",
+    "server.js",
+    "src/queue.js",
+    "test/queue.test.js"
+  ],
+  "features": [
+    {
+      "text": "6 HTTP endpoints (GET /api/counters, GET /api/counters/:id, POST /api/counters/:id/join, POST /api/counters/:id/next, POST /api/counters/:id/done/:tokenId, POST /api/counters/:id/leave/:tokenId)",
+      "sources": [
+        "server.js"
+      ]
+    },
+    {
+      "text": "Automated tests in test/queue.test.js",
+      "sources": [
+        "test/queue.test.js"
+      ]
+    },
+    {
+      "text": "Starts with `npm start` (node server.js)",
+      "sources": [
+        "package.json"
+      ]
+    },
+    {
+      "text": "Tests run with `npm test` (node --test test/queue.test.js)",
+      "sources": [
+        "package.json"
+      ]
+    },
+    {
+      "text": "Serves a browser page from a static folder",
+      "sources": [
+        "public/index.html"
+      ]
+    }
+  ]
+}
